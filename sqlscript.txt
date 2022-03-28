@@ -1,0 +1,73 @@
+USE [master]
+GO
+// Create Database
+CREATE DATABASE [IncendiaGroupTask]
+
+GO
+
+USE [IncendiaGroupTask]
+GO
+
+/****** Object:  Table [dbo].[AccountBalanceDetails]    Script Date: 28-03-2022 18:05:02 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+// Create Account Info table
+CREATE TABLE [dbo].[AccountBalanceDetails](
+	[Id] [int] NOT NULL,
+	[Balance] [decimal](18, 2) NULL,
+	[LastUpdatedDate] [datetime] NULL,
+ CONSTRAINT [PK_AccountBalanceDetails] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[AccountBalanceDetails] ADD  CONSTRAINT [DF_AccountBalanceDetails_Balance]  DEFAULT ((0)) FOR [Balance]
+GO
+
+ALTER TABLE [dbo].[AccountBalanceDetails] ADD  CONSTRAINT [DF_AccountBalanceDetails_LastUpdatedDate]  DEFAULT (getdate()) FOR [LastUpdatedDate]
+GO
+
+
+USE [IncendiaGroupTask]
+GO
+
+/****** Object:  Table [dbo].[TransactionsDetails]    Script Date: 28-03-2022 18:05:19 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+// Create Transaction table
+CREATE TABLE [dbo].[TransactionsDetails](
+	[Id] [int] NOT NULL,
+	[Amount] [decimal](18, 2) NULL,
+	[Direction] [nvarchar](50) NULL,
+	[Account] [int] NULL,
+	[DateedOn] [datetime] NULL
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[TransactionsDetails] ADD  CONSTRAINT [DF_TransactionsDetails_DateedOn]  DEFAULT (getdate()) FOR [DateedOn]
+GO
+
+
+// Insert sample data to AccountBalanceDetails table
+USE [IncendiaGroupTask]
+GO
+
+INSERT INTO [dbo].[AccountBalanceDetails]
+           ([Id]
+           ,[Balance]
+           ,[LastUpdatedDate])
+     VALUES
+           (1001
+           ,1000
+           ,2022-03-28 16:47:58.620)
+GO
+
+
